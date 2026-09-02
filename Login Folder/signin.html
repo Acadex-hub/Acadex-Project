@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign In</title>
+    <script>
+        function signIn() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            // TODO: Implement server-side authentication
+            alert('Sign in functionality needs server-side implementation.');
+        }
+    </script>
+</head>
+<body>
+    <h2>Sign In</h2>
+    <form onsubmit="signIn(); return false;">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required><br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required><br><br>
+        <button type="submit">Sign In</button>
+    </form>
+    <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+</body>
+</html>
