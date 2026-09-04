@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acadex - Online Academic Resource Library</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+    }
+
+    /* Header */
+    header {
+      background-color: #ffffff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      background-color: #f0f0f0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .header-center {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .header-center a {
+      text-decoration: none;
+      color: #666;
+      font-size: 0.95rem;
+      transition: color 0.3s;
+    }
+
+    .header-center a:hover {
+      color: #333;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .search-box {
+      padding: 0.6rem 1rem;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      width: 200px;
+      font-size: 0.9rem;
+    }
+
+    .login-btn {
+      background-color: #333;
+      color: white;
+      padding: 0.6rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #f5f5f5 0%, #eeeeee 100%);
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    .hero-banner h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-banner p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background-color: #333;
+      color: white;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: #333;
+      padding: 0.8rem 2rem;
+      border: 2px solid #333;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Features Section */
+    .features {
+      margin: 3rem 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background-color: #f9f9f9;
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #eee;
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-card p {
+      color: #666;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Categories Section */
+    .categories {
+      margin: 3rem 0;
+      background-color: #f9f9f9;
+      padding: 2rem;
+      border-radius: 8px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .category-box {
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid #eee;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .category-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .category-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .category-box p {
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    /* Books Section */
+    .books-section {
+      margin: 3rem 0;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 2rem;
+    }
+
+    .book-card {
+      background-color: white;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .book-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .book-cover {
+      background: linear-gradient(135deg, #ddd 0%, #ccc 100%);
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .book-info {
+      padding: 1rem;
+    }
+
+    .book-title {
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+      line-height: 1.3;
+    }
+
+    .book-author {
+      color: #666;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .book-price {
+      font-weight: bold;
+      color: #333;
+      font-size: 0.9rem;
+    }
+
+    /* Stats Section */
+    .stats {
+      background-color: #f9f9f9;
+      padding: 2rem;
+      border-radius: 8px;
+      margin: 3rem 0;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-item p {
+      color: #666;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background-color: #333;
+      color: white;
+      padding: 3rem 2rem;
+      border-radius: 8px;
+      text-align: center;
+      margin: 3rem 0;
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-section button {
+      background-color: white;
+      color: #333;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2a2a2a;
+      color: #999;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .header-center {
+        display: none;
+      }
+
+      .hero-banner h1 {
+        font-size: 1.8rem;
+      }
+
+      .search-box {
+        width: 150px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="header-left">
+      <div class="logo-img">📚</div>
+      <div class="logo-text">ACADEX</div>
+    </div>
+
+    <ul class="header-center">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">E-Books</a></li>
+      <li><a href="#">Courses</a></li>
+      <li><a href="#">Resources</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+
+    <div class="header-right">
+      <input type="text" class="search-box" placeholder="Search...">
+      <button class="login-btn">Login</button>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-banner">
+    <h1>Welcome to Acadex</h1>
+    <p>Your gateway to unlimited academic resources, e-books, and learning materials. Access thousands of titles from anywhere, anytime.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary">Start Exploring</button>
+      <button class="btn-secondary">Learn More</button>
+    </div>
+  </section>
+
+  <div class="container">
+    <!-- Features Section -->
+    <section class="features">
+      <h2 class="section-title">Why Choose Acadex?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔓</div>
+          <h3>Unlimited Access</h3>
+          <p>Get instant access to thousands of e-books, journals, and academic resources with a single subscription.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Multi-Device</h3>
+          <p>Read on your phone, tablet, or computer. Your library follows you everywhere.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Advanced Search</h3>
+          <p>Find exactly what you need with our powerful search and filtering tools.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⭐</div>
+          <h3>Quality Content</h3>
+          <p>Curated collection of bestsellers, academic texts, and educational materials.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories">
+      <h2 class="section-title">Browse by Category</h2>
+      <div class="categories-grid">
+        <div class="category-box">
+          <div class="category-icon">📖</div>
+          <p>Fiction</p>
+        </div>
+        <div class="category-box">
+          <div class="category-icon">🔬</div>
+          <p>Science</p>
+        </div>
+        <div class="category-box">
+          <div class="category-icon">📚</div>
+          <p>Education</p>
+        </div>
+        <div class="category-box">
+          <div class="category-icon">💼</div>
+          <p>Business</p>
+        </div>
+        <div class="category-box">
+          <div class="category-icon">🎨</div>
+          <p>Arts</p>
+        </div>
+        <div class="category-box">
+          <div class="category-icon">⚙️</div>
+          <p>Technology</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Books Section -->
+    <section class="books-section">
+      <h2 class="section-title">Featured Books</h2>
+      <div class="books-grid">
+        <div class="book-card">
+          <div class="book-cover">📖</div>
+          <div class="book-info">
+            <div class="book-title">The Art of Learning</div>
+            <div class="book-author">Josh Waitzkin</div>
+            <div class="book-price">$12.99</div>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-cover">📕</div>
+          <div class="book-info">
+            <div class="book-title">Atomic Habits</div>
+            <div class="book-author">James Clear</div>
+            <div class="book-price">$14.99</div>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-cover">📗</div>
+          <div class="book-info">
+            <div class="book-title">Deep Work</div>
+            <div class="book-author">Cal Newport</div>
+            <div class="book-price">$13.99</div>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-cover">📙</div>
+          <div class="book-info">
+            <div class="book-title">Thinking Fast and Slow</div>
+            <div class="book-author">Daniel Kahneman</div>
+            <div class="book-price">$15.99</div>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-cover">📘</div>
+          <div class="book-info">
+            <div class="book-title">The Lean Startup</div>
+            <div class="book-author">Eric Ries</div>
+            <div class="book-price">$13.99</div>
+          </div>
+        </div>
+
+        <div class="book-card">
+          <div class="book-cover">📓</div>
+          <div class="book-info">
+            <div class="book-title">Sapiens</div>
+            <div class="book-author">Yuval Noah Harari</div>
+            <div class="book-price">$16.99</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h3>100K+</h3>
+          <p>Books & Resources</p>
+        </div>
+        <div class="stat-item">
+          <h3>50K+</h3>
+          <p>Active Readers</p>
+        </div>
+        <div class="stat-item">
+          <h3>200+</h3>
+          <p>Categories</p>
+        </div>
+        <div class="stat-item">
+          <h3>24/7</h3>
+          <p>Customer Support</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <h2>Ready to Start Learning?</h2>
+      <p>Join thousands of students and professionals using Acadex to expand their knowledge.</p>
+      <button>Get Started Today</button>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Acadex - Online Academic Resource Library</p>
+    <p>All rights reserved. | Privacy Policy | Terms of Service</p>
+  </footer>
+</body>
+</html>
