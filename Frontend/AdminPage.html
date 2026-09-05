@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acadex - Admin Dashboard</title>
+
+    <!-- Link your CSS later -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <div class="logo">
+                <h2>Acadex</h2>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="admin.html">Dashboard</a></li>
+                <li><a href="#">Resources</a></li>
+                <li><a href="#">Students</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">Reports</a></li>
+            </ul>
+
+            <div class="admin-profile">
+                <span>Admin</span>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- Main Dashboard -->
+    <main class="admin-container">
+
+        <section class="admin-header">
+            <div>
+                <h1>Admin Dashboard</h1>
+                <p>Manage and monitor the Acadex platform.</p>
+            </div>
+
+            <button class="add-resource-btn">
+                + Add Resource
+            </button>
+        </section>
+
+
+        <!-- Statistics -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <h3>Total Students</h3>
+                <p class="stat-number">1,248</p>
+                <span>Registered students</span>
+            </div>
+
+            <div class="stat-card">
+                <h3>Resources</h3>
+                <p class="stat-number">856</p>
+                <span>Academic resources</span>
+            </div>
+
+            <div class="stat-card">
+                <h3>Courses</h3>
+                <p class="stat-number">42</p>
+                <span>Active courses</span>
+            </div>
+
+            <div class="stat-card">
+                <h3>Pending Reviews</h3>
+                <p class="stat-number">18</p>
+                <span>Resources awaiting review</span>
+            </div>
+
+        </section>
+
+
+        <!-- Dashboard Sections -->
+        <section class="dashboard-grid">
+
+            <!-- Recent Resources -->
+            <div class="dashboard-card">
+
+                <div class="card-header">
+                    <h2>Recent Resources</h2>
+                    <a href="#">View All</a>
+                </div>
+
+                <div class="resource-item">
+                    <div>
+                        <h3>Database Management Notes</h3>
+                        <p>Information Technology</p>
+                    </div>
+                    <span>Approved</span>
+                </div>
+
+                <div class="resource-item">
+                    <div>
+                        <h3>Computer Networks Past Paper</h3>
+                        <p>Networking</p>
+                    </div>
+                    <span>Pending</span>
+                </div>
+
+                <div class="resource-item">
+                    <div>
+                        <h3>Software Engineering Study Guide</h3>
+                        <p>Software Development</p>
+                    </div>
+                    <span>Approved</span>
+                </div>
+
+            </div>
+
+
+            <!-- User Activity -->
+            <div class="dashboard-card">
+
+                <div class="card-header">
+                    <h2>Recent Activity</h2>
+                    <a href="#">View All</a>
+                </div>
+
+                <div class="activity-item">
+                    <strong>New student registered</strong>
+                    <p>2 minutes ago</p>
+                </div>
+
+                <div class="activity-item">
+                    <strong>New resource uploaded</strong>
+                    <p>15 minutes ago</p>
+                </div>
+
+                <div class="activity-item">
+                    <strong>Course updated</strong>
+                    <p>1 hour ago</p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Resource Management -->
+        <section class="management-section">
+
+            <div class="card-header">
+                <h2>Resource Management</h2>
+                <button>Manage Resources</button>
+            </div>
+
+            <p>
+                Review, approve, edit and remove academic resources
+                submitted to the Acadex platform.
+            </p>
+
+        </section>
+
+
+        <!-- Student Management -->
+        <section class="management-section">
+
+            <div class="card-header">
+                <h2>Student Management</h2>
+                <button>Manage Students</button>
+            </div>
+
+            <p>
+                View student accounts, monitor activity and manage
+                student access to the platform.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Acadex. Admin Portal.</p>
+    </footer>
+
+</body>
+</html>

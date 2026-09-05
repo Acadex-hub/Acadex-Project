@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acadex | Admin Dashboard</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="admin-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+
+            <div class="admin-logo">
+                <h2>Acadex</h2>
+                <span>Administration</span>
+            </div>
+
+            <nav class="admin-navigation">
+
+                <a href="admin.html" class="active">
+                    <span>▣</span>
+                    Dashboard
+                </a>
+
+                <a href="#">
+                    <span>📚</span>
+                    Resources
+                </a>
+
+                <a href="#">
+                    <span>👥</span>
+                    Students
+                </a>
+
+                <a href="#">
+                    <span>🎓</span>
+                    Courses
+                </a>
+
+                <a href="#">
+                    <span>📊</span>
+                    Analytics
+                </a>
+
+                <a href="#">
+                    <span>⚙</span>
+                    Settings
+                </a>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <a href="#">
+                    <span>❓</span>
+                    Help & Support
+                </a>
+
+                <a href="index.html">
+                    <span>↩</span>
+                    Back to Acadex
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="admin-main">
+
+            <!-- TOP BAR -->
+            <header class="admin-topbar">
+
+                <div class="admin-search">
+                    <input
+                        type="text"
+                        placeholder="Search students, resources or courses..."
+                    >
+                </div>
+
+                <div class="admin-user">
+
+                    <div class="notification">
+                        🔔
+                        <span>3</span>
+                    </div>
+
+                    <div class="admin-avatar">
+                        A
+                    </div>
+
+                    <div>
+                        <strong>Administrator</strong>
+                        <small>Admin Account</small>
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- PAGE INTRO -->
+            <section class="admin-welcome">
+
+                <div>
+                    <p class="page-label">OVERVIEW</p>
+
+                    <h1>Good morning, Admin.</h1>
+
+                    <p>
+                        Here's what's happening across the Acadex platform.
+                    </p>
+                </div>
+
+                <button class="primary-action">
+                    + Add Resource
+                </button>
+
+            </section>
+
+
+            <!-- STATISTICS -->
+            <section class="admin-statistics">
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-icon">
+                        👥
+                    </div>
+
+                    <div>
+                        <p>Total Students</p>
+                        <h2>1,248</h2>
+                        <span>+12% this month</span>
+                    </div>
+
+                </div>
+
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-icon">
+                        📚
+                    </div>
+
+                    <div>
+                        <p>Academic Resources</p>
+                        <h2>856</h2>
+                        <span>+8% this month</span>
+                    </div>
+
+                </div>
+
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-icon">
+                        🎓
+                    </div>
+
+                    <div>
+                        <p>Active Courses</p>
+                        <h2>42</h2>
+                        <span>3 added recently</span>
+                    </div>
+
+                </div>
+
+
+                <div class="admin-stat-card">
+
+                    <div class="stat-icon">
+                        ⏳
+                    </div>
+
+                    <div>
+                        <p>Pending Reviews</p>
+                        <h2>18</h2>
+                        <span>Requires attention</span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- MAIN DASHBOARD GRID -->
+            <section class="admin-dashboard-grid">
+
+
+                <!-- RESOURCE REVIEW -->
+                <div class="admin-panel resource-review">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <h2>Resource Review</h2>
+                            <p>Recently submitted resources</p>
+                        </div>
+
+                        <a href="#">View all</a>
+
+                    </div>
+
+
+                    <div class="review-item">
+
+                        <div class="resource-type">
+                            PDF
+                        </div>
+
+                        <div class="resource-details">
+
+                            <strong>
+                                Database Management Notes
+                            </strong>
+
+                            <span>
+                                Uploaded by Thando M.
+                            </span>
+
+                        </div>
+
+                        <div class="review-status pending">
+                            Pending
+                        </div>
+
+                        <button class="review-button">
+                            Review
+                        </button>
+
+                    </div>
+
+
+                    <div class="review-item">
+
+                        <div class="resource-type">
+                            PDF
+                        </div>
+
+                        <div class="resource-details">
+
+                            <strong>
+                                Computer Networks Past Paper
+                            </strong>
+
+                            <span>
+                                Uploaded by Sipho N.
+                            </span>
+
+                        </div>
+
+                        <div class="review-status pending">
+                            Pending
+                        </div>
+
+                        <button class="review-button">
+                            Review
+                        </button>
+
+                    </div>
+
+
+                    <div class="review-item">
+
+                        <div class="resource-type">
+                            DOC
+                        </div>
+
+                        <div class="resource-details">
+
+                            <strong>
+                                Software Engineering Guide
+                            </strong>
+
+                            <span>
+                                Uploaded by Ayanda K.
+                            </span>
+
+                        </div>
+
+                        <div class="review-status approved">
+                            Approved
+                        </div>
+
+                        <button class="review-button">
+                            View
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+                <div class="admin-panel quick-actions">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <h2>Quick Actions</h2>
+                            <p>Common administrative tasks</p>
+                        </div>
+
+                    </div>
+
+
+                    <button>
+                        <span>＋</span>
+
+                        <div>
+                            <strong>Add Resource</strong>
+                            <small>Upload academic material</small>
+                        </div>
+                    </button>
+
+
+                    <button>
+                        <span>＋</span>
+
+                        <div>
+                            <strong>Add Course</strong>
+                            <small>Create a new course</small>
+                        </div>
+                    </button>
+
+
+                    <button>
+                        <span>👤</span>
+
+                        <div>
+                            <strong>Manage Students</strong>
+                            <small>View student accounts</small>
+                        </div>
+                    </button>
+
+
+                    <button>
+                        <span>📈</span>
+
+                        <div>
+                            <strong>View Analytics</strong>
+                            <small>Check platform activity</small>
+                        </div>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- LOWER DASHBOARD -->
+            <section class="admin-lower-grid">
+
+
+                <!-- RECENT ACTIVITY -->
+                <div class="admin-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <h2>Recent Activity</h2>
+                            <p>Latest activity on Acadex</p>
+                        </div>
+
+                        <a href="#">View all</a>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            👤
+                        </div>
+
+                        <div>
+                            <strong>New student registered</strong>
+                            <p>Student account created</p>
+                            <small>5 minutes ago</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            📚
+                        </div>
+
+                        <div>
+                            <strong>New resource uploaded</strong>
+                            <p>Database Management Notes</p>
+                            <small>20 minutes ago</small>
+                        </div>
+
+                    </div>
+
+
+                    <div class="activity">
+
+                        <div class="activity-icon">
+                            🎓
+                        </div>
+
+                        <div>
+                            <strong>Course updated</strong>
+                            <p>Information Technology</p>
+                            <small>1 hour ago</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PLATFORM SNAPSHOT -->
+                <div class="admin-panel">
+
+                    <div class="panel-heading">
+
+                        <div>
+                            <h2>Platform Snapshot</h2>
+                            <p>Acadex usage overview</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="snapshot">
+
+                        <div>
+                            <span>Resources viewed</span>
+                            <strong>8,492</strong>
+                        </div>
+
+                        <div>
+                            <span>Downloads</span>
+                            <strong>3,721</strong>
+                        </div>
+
+                        <div>
+                            <span>Active students</span>
+                            <strong>734</strong>
+                        </div>
+
+                        <div>
+                            <span>Resources uploaded</span>
+                            <strong>126</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+</html>
