@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acadex | Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <header class="navbar auth-navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" aria-label="Acadex home">
+                <span class="logo-icon">
+                    <img src="Acadex-logo.png" alt="Acadex logo">
+                </span>
+                <span>Acadex</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="auth-shell">
+        <section class="auth-panel">
+            <div class="auth-box">
+                <span class="section-label">STUDENT PORTAL</span>
+                <h1>Welcome back</h1>
+                <p class="subtitle">Access your notes, assignments and study resources in one place.</p>
+
+                <div id="auth-forms">
+                <div class="auth-tabs" aria-label="Authentication tabs">
+                    <button type="button" class="tab-btn active" data-tab="login">Login</button>
+                    <button type="button" class="tab-btn" data-tab="signup">Sign Up</button>
+                </div>
+
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" autocomplete="username" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+
+                    <div class="form-row">
+                        <label class="checkbox-wrap">
+                            <input type="checkbox" id="login-admin">
+                            <span>Login as admin</span>
+                        </label>
+                        <button type="button" id="forgot-password-button" class="text-link">Forgot password?</button>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Login</button>
+                    <div id="login-error" class="error-message"></div>
+                </form>
+
+                <form id="signupForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="signup-username">Full Name</label>
+                        <input type="text" id="signup-username" autocomplete="name" maxlength="100" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" autocomplete="email" maxlength="100" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" autocomplete="new-password" minlength="8" placeholder="Create a password (at least 8 characters)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signup-confirm">Confirm Password</label>
+                        <input type="password" id="signup-confirm" autocomplete="new-password" minlength="8" placeholder="Confirm your password" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary">Create Account</button>
+                    <div id="signup-error" class="error-message"></div>
+                </form>
+                </div>
+
+                <section id="password-reset" class="password-reset" hidden>
+                    <h2>Reset your password</h2>
+                    <p class="reset-intro">We will send a six-digit verification code to your account email.</p>
+                    <form id="request-reset-form" class="auth-form active">
+                        <div class="form-group">
+                            <label for="reset-email">Email Address</label>
+                            <input type="email" id="reset-email" autocomplete="email" maxlength="100" placeholder="Enter your account email" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Send verification code</button>
+                    </form>
+                    <form id="verify-reset-form" class="auth-form" hidden>
+                        <div class="form-group">
+                            <label for="reset-otp">Six-digit verification code</label>
+                            <input type="text" id="reset-otp" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Verify code</button>
+                    </form>
+                    <form id="complete-reset-form" class="auth-form" hidden>
+                        <div class="form-group">
+                            <label for="reset-password">New password</label>
+                            <input type="password" id="reset-password" autocomplete="new-password" minlength="8" placeholder="At least 8 characters" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="reset-confirm">Confirm new password</label>
+                            <input type="password" id="reset-confirm" autocomplete="new-password" minlength="8" placeholder="Repeat your new password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Reset password</button>
+                    </form>
+                    <div id="reset-message" class="error-message" role="status" aria-live="polite"></div>
+                    <button type="button" id="back-to-login" class="text-link">Back to Login</button>
+                </section>
+            </div>
+        </section>
+
+        <aside class="promo-panel">
+            <div class="promo-card">
+                <span class="section-label">ACADEX</span>
+                <h2>Study smarter. Stay organised.</h2>
+                <p>Everything your academic life needs is brought together in one focused digital space.</p>
+
+                <div class="promo-stats">
+                    <div>
+                        <strong>128+</strong>
+                        <span>notes</span>
+                    </div>
+                    <div>
+                        <strong>24/7</strong>
+                        <span>access</span>
+                    </div>
+                </div>
+
+                <div class="promo-visual">
+                    <div class="mini-window">
+                        <div class="mini-top">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="mini-body">
+                            <div class="side-col">
+                                <div class="active-dot"></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class="main-col">
+                                <div class="resource-box"></div>
+                                <div class="resource-box small"></div>
+                                <div class="resource-box tall"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script src="js/script.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+</html>
+

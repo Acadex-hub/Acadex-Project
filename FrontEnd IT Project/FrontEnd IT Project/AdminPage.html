@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acadex - Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+
+<body class="admin-page">
+    <header class="admin-topbar">
+        <a class="admin-brand" href="AcadexHomepage.html" aria-label="Acadex home">
+            <span class="admin-brand-mark"><img src="Acadex-logo.png" alt=""></span>
+            <span>Acadex</span>
+        </a>
+        <div class="admin-account">
+            <span class="admin-account-mark" aria-hidden="true">A</span>
+            <span>Administrator</span>
+            <a href="indext.html?tab=login" class="admin-signout">Sign out</a>
+        </div>
+    </header>
+
+    <main class="admin-shell">
+        <aside class="admin-sidebar" aria-label="Administration">
+            <div class="admin-sidebar-heading">
+                <span class="admin-eyebrow">ACADEX CONTROL</span>
+                <h1>Platform<br><em>overview</em></h1>
+            </div>
+            <nav class="admin-nav">
+                <a class="admin-nav-link active" href="#overview"><span aria-hidden="true">▦</span>Overview</a>
+                <a class="admin-nav-link" href="#resource-review"><span aria-hidden="true">▤</span>Resource review <b>18</b></a>
+                <a class="admin-nav-link" href="#students"><span aria-hidden="true">♧</span>Students</a>
+                <a class="admin-nav-link" href="#courses"><span aria-hidden="true">⌂</span>Courses</a>
+                <a class="admin-nav-link" href="#activity"><span aria-hidden="true">◷</span>Activity</a>
+            </nav>
+            <div class="admin-sidebar-note">
+                <span aria-hidden="true">✦</span>
+                <p><strong>Keep Acadex useful.</strong> Review shared resources and support the student community.</p>
+            </div>
+        </aside>
+
+        <div class="admin-main" id="overview">
+            <div class="admin-page-heading">
+                <div>
+                    <span class="admin-eyebrow">TUESDAY, 22 SEPTEMBER 2026</span>
+                    <h2>Admin dashboard</h2>
+                    <p>Manage the learning space and keep an eye on what needs attention.</p>
+                </div>
+                <a class="admin-primary-action" href="#resource-review"><span aria-hidden="true">＋</span> Review resources</a>
+            </div>
+
+            <section class="admin-metrics" aria-label="Platform statistics">
+                <article class="admin-metric">
+                    <div class="admin-metric-top"><span>Registered students</span><span class="metric-icon students" aria-hidden="true">♧</span></div>
+                    <strong>1,248</strong>
+                    <small>Student accounts</small>
+                </article>
+                <article class="admin-metric">
+                    <div class="admin-metric-top"><span>Library resources</span><span class="metric-icon resources" aria-hidden="true">▤</span></div>
+                    <strong>856</strong>
+                    <small>Across all courses</small>
+                </article>
+                <article class="admin-metric">
+                    <div class="admin-metric-top"><span>Active courses</span><span class="metric-icon courses" aria-hidden="true">⌂</span></div>
+                    <strong>42</strong>
+                    <small>Available to students</small>
+                </article>
+                <article class="admin-metric attention-metric">
+                    <div class="admin-metric-top"><span>Needs review</span><span class="metric-icon pending" aria-hidden="true">!</span></div>
+                    <strong>18</strong>
+                    <small>Resources awaiting approval</small>
+                </article>
+            </section>
+
+            <div class="admin-content-grid">
+                <section class="admin-section admin-review-section" id="resource-review">
+                    <div class="admin-section-heading">
+                        <div>
+                            <span class="admin-eyebrow">MODERATION QUEUE</span>
+                            <h3>Resource review</h3>
+                        </div>
+                        <a href="#resource-review" class="admin-text-link">View queue <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="admin-table-wrap">
+                        <table class="admin-resource-table">
+                            <thead>
+                                <tr><th scope="col">Resource</th><th scope="col">Submitted by</th><th scope="col">Type</th><th scope="col">Status</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Database Management Notes</strong><small>Database Systems</small></td>
+                                    <td>Amara Pillay</td><td>Notes</td><td><span class="status-pill approved">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Computer Networks Past Paper</strong><small>Computer Networks</small></td>
+                                    <td>Katlego Maseko</td><td>Past paper</td><td><span class="status-pill pending">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Software Engineering Study Guide</strong><small>Software Development</small></td>
+                                    <td>Thando Ndlovu</td><td>Study guide</td><td><span class="status-pill approved">Approved</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Intro to Machine Learning</strong><small>Machine Learning</small></td>
+                                    <td>Lwazi Dlamini</td><td>Article</td><td><span class="status-pill pending">Pending</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="admin-section admin-activity-section" id="activity">
+                    <div class="admin-section-heading">
+                        <div>
+                            <span class="admin-eyebrow">LIVE UPDATES</span>
+                            <h3>Recent activity</h3>
+                        </div>
+                        <span class="activity-live"><i></i>Today</span>
+                    </div>
+                    <ol class="admin-activity-list">
+                        <li><span class="activity-marker new-user" aria-hidden="true">＋</span><div><strong>New student registered</strong><p>Sam Mokoena joined Acadex</p><time>2 min ago</time></div></li>
+                        <li><span class="activity-marker new-resource" aria-hidden="true">▤</span><div><strong>Resource submitted</strong><p>Computer Networks Past Paper</p><time>15 min ago</time></div></li>
+                        <li><span class="activity-marker course-update" aria-hidden="true">⌂</span><div><strong>Course updated</strong><p>Software Development</p><time>1 hour ago</time></div></li>
+                        <li><span class="activity-marker new-user" aria-hidden="true">＋</span><div><strong>Community created</strong><p>Web Development Study Group</p><time>3 hours ago</time></div></li>
+                    </ol>
+                </section>
+            </div>
+
+            <section class="admin-management" aria-label="Management areas">
+                <div class="admin-management-heading">
+                    <div><span class="admin-eyebrow">PLATFORM TOOLS</span><h3>Manage Acadex</h3></div>
+                    <p>Jump to the areas that keep the learning space running.</p>
+                </div>
+                <div class="admin-management-grid">
+                    <a class="admin-management-link" id="students" href="#students">
+                        <span class="management-icon students" aria-hidden="true">♧</span>
+                        <span><strong>Student accounts</strong><small>Review access and account activity</small></span>
+                        <span class="management-arrow" aria-hidden="true">→</span>
+                    </a>
+                    <a class="admin-management-link" id="courses" href="#courses">
+                        <span class="management-icon courses" aria-hidden="true">⌂</span>
+                        <span><strong>Courses</strong><small>Organise subjects and course listings</small></span>
+                        <span class="management-arrow" aria-hidden="true">→</span>
+                    </a>
+                    <a class="admin-management-link" href="#activity">
+                        <span class="management-icon reports" aria-hidden="true">◷</span>
+                        <span><strong>Activity history</strong><small>See the latest platform changes</small></span>
+                        <span class="management-arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </section>
+
+            <footer class="admin-footer">© 2026 Acadex <span>Administration</span></footer>
+        </div>
+    </main>
+
+    <script src="js/theme.js"></script>
+</body>
+</html>
