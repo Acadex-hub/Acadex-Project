@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acadex - Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+
+<body class="admin-page">
+    <header class="admin-topbar">
+        <a class="admin-brand" href="AcadexHomepage.html" aria-label="Acadex home">
+            <span class="admin-brand-mark"><img src="Acadex-logo.png" alt=""></span>
+            <span>Acadex</span>
+        </a>
+        <div class="admin-account">
+            <span class="admin-account-mark" id="admin-account-mark" aria-hidden="true">A</span>
+            <span id="admin-account-name">Administrator</span>
+            <a href="indext.html?tab=login" class="admin-signout" id="admin-signout">Sign out</a>
+        </div>
+    </header>
+
+    <main class="admin-shell">
+        <aside class="admin-sidebar" aria-label="Administration">
+            <div class="admin-sidebar-heading">
+                <span class="admin-eyebrow">ACADEX CONTROL</span>
+                <h1>Platform<br><em>overview</em></h1>
+            </div>
+            <nav class="admin-nav">
+                <a class="admin-nav-link active" href="#overview"><span aria-hidden="true">▦</span>Overview</a>
+                <a class="admin-nav-link" href="#resource-review"><span aria-hidden="true">▤</span>Resource review <b id="admin-nav-pending-count">—</b></a>
+                <a class="admin-nav-link" href="#students"><span aria-hidden="true">♧</span>Students</a>
+                <a class="admin-nav-link" href="#course-materials-panel"><span aria-hidden="true">⌂</span>Courses</a>
+                <a class="admin-nav-link" href="#activity"><span aria-hidden="true">◷</span>Activity</a>
+                <a class="admin-nav-link" href="#admin-audit-log"><span aria-hidden="true">▣</span>Audit log</a>
+            </nav>
+            <div class="admin-sidebar-note">
+                <span aria-hidden="true">✦</span>
+                <p><strong>Keep Acadex useful.</strong> Review shared resources and support the student community.</p>
+            </div>
+        </aside>
+
+        <div class="admin-main" id="overview">
+            <div class="admin-page-heading">
+                <div>
+                    <time class="admin-eyebrow" id="admin-current-date"></time>
+                    <h2>Admin dashboard</h2>
+                    <p>Manage the learning space and keep an eye on what needs attention.</p>
+                </div>
+                <a class="admin-primary-action" href="#resource-review"><span aria-hidden="true">＋</span> Review resources</a>
+            </div>
+            <p class="admin-dashboard-error" id="admin-dashboard-error" role="alert" hidden></p>
+
+            <section class="admin-metrics" aria-label="Platform statistics">
+                <article class="admin-metric">
+                    <div class="admin-metric-top"><span>Registered students</span><span class="metric-icon students" aria-hidden="true">♧</span></div>
+                    <strong id="admin-student-count">—</strong>
+                    <small>Active student accounts</small>
+                </article>
+                <article class="admin-metric">
+                    <div class="admin-metric-top"><span>Submitted resources</span><span class="metric-icon resources" aria-hidden="true">▤</span></div>
+                    <strong id="admin-resource-count">—</strong>
+                    <small>All review statuses</small>
+                </article>
+                <article class="admin-metric">
+                    <div class="admin-metric-top"><span>Courses</span><span class="metric-icon courses" aria-hidden="true">⌂</span></div>
+                    <strong id="admin-course-count">—</strong>
+                    <small>Information Technology and Business Administration</small>
+                </article>
+                <article class="admin-metric attention-metric">
+                    <div class="admin-metric-top"><span>Needs review</span><span class="metric-icon pending" aria-hidden="true">!</span></div>
+                    <strong id="admin-pending-count">—</strong>
+                    <small>Resources awaiting approval</small>
+                </article>
+            </section>
+
+            <div class="admin-content-grid">
+                <section class="admin-section admin-review-section" id="resource-review">
+                    <div class="admin-section-heading">
+                        <div>
+                            <span class="admin-eyebrow">MODERATION QUEUE</span>
+                            <h3>Resource review</h3>
+                        </div>
+                        <span class="admin-text-link" id="admin-resource-queue-count">Loading queue…</span>
+                    </div>
+                    <div class="admin-table-wrap">
+                        <table class="admin-resource-table">
+                            <thead>
+                                <tr><th scope="col">Resource</th><th scope="col">Submitted by</th><th scope="col">Type</th><th scope="col">Status</th><th scope="col">Review</th></tr>
+                            </thead>
+                            <tbody id="admin-resource-rows">
+                                <tr><td colspan="5">Loading pending resources…</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="admin-section admin-activity-section" id="activity">
+                    <div class="admin-section-heading">
+                        <div>
+                            <span class="admin-eyebrow">LIVE UPDATES</span>
+                            <h3>Recent activity</h3>
+                        </div>
+                        <span class="activity-live"><i></i>Recent</span>
+                    </div>
+                    <ol class="admin-activity-list" id="admin-activity-list">
+                        <li>Loading recent activity…</li>
+                    </ol>
+                </section>
+            </div>
+
+            <section class="admin-section" id="admin-audit-log" aria-labelledby="admin-audit-heading">
+                <div class="admin-section-heading">
+                    <div>
+                        <span class="admin-eyebrow">ADMIN HISTORY</span>
+                        <h3 id="admin-audit-heading">Administrator audit log</h3>
+                    </div>
+                    <span class="admin-text-link" id="admin-audit-count">Loading audit log…</span>
+                </div>
+                <p class="admin-dashboard-error" id="admin-audit-error" role="alert" hidden></p>
+                <div class="admin-table-wrap">
+                    <table class="admin-resource-table">
+                        <thead>
+                            <tr><th scope="col">When</th><th scope="col">Administrator</th><th scope="col">Action</th><th scope="col">Target</th><th scope="col">Details</th></tr>
+                        </thead>
+                        <tbody id="admin-audit-rows">
+                            <tr><td colspan="5">Loading administrator actions…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="admin-management" aria-label="Management areas">
+                <div class="admin-management-heading">
+                    <div><span class="admin-eyebrow">PLATFORM TOOLS</span><h3>Manage Acadex</h3></div>
+                    <p>Jump to the areas that keep the learning space running.</p>
+                </div>
+                <div class="admin-management-grid">
+                    <a class="admin-management-link" id="students" href="#student-accounts-panel">
+                        <span class="management-icon students" aria-hidden="true">♧</span>
+                        <span><strong>Student Accounts</strong><small id="admin-student-summary">Loading student accounts…</small></span>
+                        <span class="management-arrow" aria-hidden="true">→</span>
+                    </a>
+                    <a class="admin-management-link" id="admin-courses-link" href="#course-materials-panel">
+                        <span class="management-icon courses" aria-hidden="true">⌂</span>
+                        <span><strong>Courses</strong><small id="admin-course-summary">Loading course folders…</small></span>
+                        <span class="management-arrow" aria-hidden="true">→</span>
+                    </a>
+                    <a class="admin-management-link" href="#activity">
+                        <span class="management-icon reports" aria-hidden="true">◷</span>
+                        <span><strong>Activity history</strong><small>See the latest platform changes</small></span>
+                        <span class="management-arrow" aria-hidden="true">→</span>
+                    </a>
+                </div>
+            </section>
+
+            <section class="admin-section course-materials-panel" id="course-materials-panel" aria-labelledby="course-materials-heading" hidden>
+                <div class="admin-section-heading">
+                    <div>
+                        <span class="admin-eyebrow">STUDENT LIBRARY</span>
+                        <h3 id="course-materials-heading">Course materials</h3>
+                    </div>
+                    <span class="admin-text-link" id="admin-course-folder-count">Loading courses…</span>
+                </div>
+                <p id="admin-course-material-error" class="admin-dashboard-error" role="alert" hidden></p>
+                <div class="course-folder-grid" id="admin-course-folder-grid"></div>
+                <section class="course-folder-details" id="admin-course-folder-details" aria-live="polite">
+                    <div class="admin-section-heading">
+                        <div>
+                            <span class="admin-eyebrow">AVAILABLE MATERIALS</span>
+                            <h4 id="admin-selected-course-heading">Select a course folder</h4>
+                        </div>
+                        <span class="admin-text-link" id="admin-selected-course-count"></span>
+                    </div>
+                    <div class="admin-table-wrap">
+                        <table class="admin-resource-table">
+                            <thead>
+                                <tr><th scope="col">Material</th><th scope="col">Type</th><th scope="col">Added by</th><th scope="col">File</th><th scope="col">Action</th></tr>
+                            </thead>
+                            <tbody id="admin-course-material-rows">
+                                <tr><td colspan="5">Choose IT or Business Administration to view its materials.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <form id="admin-add-course-material-form" class="student-account-form course-material-form" enctype="multipart/form-data">
+                    <h4>Add material to the student library</h4>
+                    <div class="student-account-field">
+                        <label for="admin-material-title">Title</label>
+                        <input id="admin-material-title" name="title" type="text" maxlength="220" required>
+                    </div>
+                    <div class="student-account-field">
+                        <label for="admin-material-category">Course folder</label>
+                        <select id="admin-material-category" name="resource_category" required>
+                            <option value="IT">Information Technology (IT)</option>
+                            <option value="Business Administration">Business Administration (BA)</option>
+                        </select>
+                    </div>
+                    <div class="student-account-field">
+                        <label for="admin-material-type">Material type</label>
+                        <select id="admin-material-type" name="resource_type" required>
+                            <option value="notes">Notes</option>
+                            <option value="article">Articles</option>
+                            <option value="past_paper">Past Papers &amp; Memos</option>
+                        </select>
+                    </div>
+                    <div class="student-account-field">
+                        <label for="admin-material-description">Description</label>
+                        <input id="admin-material-description" name="description" type="text" maxlength="2000">
+                    </div>
+                    <div class="student-account-field">
+                        <label for="admin-material-file">Document (PDF, DOC, or DOCX; max 10 MB)</label>
+                        <input id="admin-material-file" name="file" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                    </div>
+                    <button class="admin-primary-action" type="submit">Publish material</button>
+                    <p class="student-account-form-note">Published materials appear in the matching student library folder immediately. Archived materials are removed from student view, with their files retained.</p>
+                </form>
+            </section>
+
+            <section class="admin-section student-accounts-panel" id="student-accounts-panel" aria-labelledby="student-activity-heading" hidden>
+                <div class="admin-section-heading student-activity-heading">
+                    <div>
+                        <span class="admin-eyebrow">STUDENT ENGAGEMENT</span>
+                        <h3 id="student-activity-heading">Student login time</h3>
+                    </div>
+                    <label class="student-activity-month" for="student-activity-month">Month
+                        <input id="student-activity-month" type="month">
+                    </label>
+                </div>
+                <p id="student-activity-error" class="admin-dashboard-error" role="alert" hidden></p>
+                <form id="admin-add-student-form" class="student-account-form">
+                    <h4>Add a student account</h4>
+                    <div class="student-account-field">
+                        <label for="admin-new-student-name">Full name</label>
+                        <input id="admin-new-student-name" name="full_name" type="text" maxlength="100" autocomplete="name" required>
+                    </div>
+                    <div class="student-account-field">
+                        <label for="admin-new-student-email">Email</label>
+                        <input id="admin-new-student-email" name="email" type="email" maxlength="100" autocomplete="email" required>
+                    </div>
+                    <div class="student-account-field">
+                        <label for="admin-new-student-password">Initial password</label>
+                        <input id="admin-new-student-password" name="password" type="password" minlength="8" autocomplete="new-password" required>
+                    </div>
+                    <button class="admin-primary-action" type="submit">Add student</button>
+                    <p class="student-account-form-note">Share the initial password privately. The student can use password recovery to change it.</p>
+                </form>
+                <div class="student-activity-controls">
+                    <label for="student-activity-select">Student</label>
+                    <select id="student-activity-select" disabled>
+                        <option>Loading student accounts…</option>
+                    </select>
+                    <strong id="student-activity-total">— hours this month</strong>
+                </div>
+                <p class="student-activity-note" id="student-activity-note"></p>
+                <div class="student-activity-chart-wrap">
+                    <svg id="student-activity-chart" class="student-activity-chart" role="img" aria-label="Daily student login hours"></svg>
+                </div>
+                <div class="student-activity-table-wrap">
+                    <table class="admin-resource-table student-activity-table">
+                        <thead>
+                            <tr><th scope="col">Student</th><th scope="col">Email</th><th scope="col">Hours this month</th><th scope="col">Account</th></tr>
+                        </thead>
+                        <tbody id="student-activity-rows">
+                            <tr><td colspan="3">Loading active student accounts…</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <footer class="admin-footer">© <span id="admin-footer-year"></span> Acadex <span>Administration</span></footer>
+        </div>
+    </main>
+
+    <script src="js/theme.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

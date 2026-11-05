@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acadex | Student Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body class="dashboard-page">
+    <header class="dashboard-topbar">
+        <a class="dashboard-logo" href="AcadexHomepage.html" aria-label="Acadex home"><span class="dashboard-logo-mark"><img src="Acadex-logo.png" alt=""></span><span>Acadex</span></a>
+        <div class="dashboard-user"><div class="dashboard-avatar profile-avatar" data-profile-avatar aria-hidden="true"><span data-profile-initial>?</span><img data-profile-image alt=""></div><div><strong data-profile-name>Loading profile...</strong><span>Student account</span></div><button class="icon-button" aria-label="Open profile menu" onclick="showDashboardTab('profile')">⌄</button><button class="header-logout" type="button" onclick="logout()">Log out</button></div>
+    </header>
+    <main class="dashboard-shell">
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-intro"><span class="eyebrow">YOUR STUDY SPACE</span><h1>Keep learning<br><em>together.</em></h1></div>
+            <nav class="dashboard-nav" aria-label="Dashboard sections">
+                <button class="dashboard-nav-item active" data-tab="library" onclick="showDashboardTab('library')"><span>▤</span> Library</button>
+                <button class="dashboard-nav-item" data-tab="friends" onclick="showDashboardTab('friends')"><span>♧</span> Friends</button>
+                <button class="dashboard-nav-item" data-tab="communities" onclick="showDashboardTab('communities')"><span>◌</span> Communities</button>
+                <button class="dashboard-nav-item" data-tab="profile" onclick="showDashboardTab('profile')"><span>○</span> Profile</button>
+            </nav>
+            <div class="sidebar-tip"><span>✦</span><p><strong>Small steps add up.</strong> Share one useful resource today.</p></div>
+            <button class="dashboard-logout" onclick="logout()">↪ <span>Log out</span></button>
+        </aside>
+        <section class="dashboard-content">
+            <div class="dashboard-heading"><div><span id="dashboard-current-date" class="eyebrow"></span><h2 id="page-title">Your library</h2></div><div class="dashboard-search" id="dashboard-search-wrap"><span>⌕</span><input id="global-search" type="search" placeholder="Search library resources..." oninput="searchDashboard(this.value)"></div></div>
+            <section id="library-tab" class="dashboard-panel active">
+                <div class="panel-lead"><div><p class="panel-kicker">SHARED KNOWLEDGE</p><h3>Find something useful.</h3><p>Browse resources uploaded by students and approved by an administrator.</p></div><button class="primary-action" onclick="openUploadModal()">＋ Upload resource</button></div>
+                <h3 class="library-section-heading">All Resources in the Library</h3>
+                <div id="resource-category-tabs" class="resource-category-tabs" role="tablist" aria-label="Library folders"></div>
+                <div id="resource-type-tabs" class="sub-tabs" role="tablist" aria-label="Library resource types"></div>
+                <div id="resource-course-filters" class="course-filter"><span>Browse by course</span></div>
+                <p id="resource-load-error" class="empty-state" role="status" hidden></p>
+                <p id="resource-upload-message" class="resource-upload-message" role="status" aria-live="polite" hidden></p>
+                <div id="resource-grid" class="resource-grid"></div><p id="empty-resources" class="empty-state" hidden>No approved resources are available yet.</p>
+            </section>
+            <section id="friends-tab" class="dashboard-panel">
+                <div class="panel-lead">
+                    <div><p class="panel-kicker">YOUR NETWORK</p><h3>Study better with friends.</h3><p>Find classmates, share resources and keep each other moving.</p></div>
+                </div>
+                <div class="community-view-tabs" role="tablist" aria-label="Friends views">
+                    <button class="community-view-tab active" type="button" role="tab" aria-selected="true" data-friends-view="discover" onclick="showFriendsView('discover')">Discover</button>
+                    <button class="community-view-tab" type="button" role="tab" aria-selected="false" data-friends-view="messages" onclick="showFriendsView('messages')">Conversations <span class="private-message-count">0</span></button>
+                </div>
+                <div id="friends-discover-view">
+                <div id="friend-results" class="people-grid"></div>
+                <p id="empty-friends" class="empty-state">Loading active student accounts...</p>
+                <div class="section-rule"><span>Friend requests</span></div>
+                <div id="incoming-friend-requests" class="friend-list"></div>
+                <p id="empty-friend-requests" class="empty-state" hidden>No pending invitations.</p>
+                <div class="section-rule"><span>Your friends</span></div>
+                <div id="friend-list" class="friend-list"></div>
+                <p id="empty-friend-list" class="empty-state" hidden>You have no accepted friendships yet.</p>
+
+                </div>
+                <section id="friends-messages-view" class="friends-messages-view" hidden aria-label="Private conversations">
+                <div class="section-rule messages-section-rule"><span>Private messages</span></div>
+                <section class="message-workspace" aria-label="Messages">
+                    <aside class="conversation-sidebar">
+                        <div class="conversation-sidebar-heading"><h3>Conversations</h3><span>0</span></div>
+                        <label class="conversation-search"><span aria-hidden="true">⌕</span><input id="conversation-search" type="search" placeholder="Find a conversation" aria-label="Find a conversation"></label>
+                        <nav class="conversation-list" id="conversation-list" aria-label="Conversations">
+                        </nav>
+                        <p id="empty-conversations" class="empty-state" hidden>You have no accepted friends to message yet.</p>
+                    </aside>
+                    <section class="conversation-thread" aria-label="Private conversation">
+                        <header class="conversation-header">
+                            <span class="conversation-avatar violet">?</span>
+                            <div><h3 id="conversation-name">Select a friend</h3><p id="conversation-status">Choose an accepted friend to start messaging.</p><button id="verify-encryption-key" class="verify-key-button" type="button" hidden>I compared this fingerprint</button></div>
+                        </header>
+                        <div id="message-list" class="message-list" role="log" aria-live="polite" aria-relevant="additions text"></div>
+                        <form id="message-form" class="message-composer">
+                            <label class="message-input-label" for="message-input">Write a message</label>
+                            <textarea id="message-input" rows="1" maxlength="2000" placeholder="Choose a friend to start messaging..." aria-label="Write a message" disabled></textarea>
+                            <div id="private-attachment-preview" class="attachment-preview" hidden>
+                                <span id="private-attachment-name" class="staged-attachment-name"></span>
+                                <button id="remove-private-attachment" class="remove-attachment" type="button" aria-label="Remove attached file">×</button>
+                            </div>
+                            <div class="composer-toolbar">
+                                <div class="composer-attachments">
+                                    <input id="private-attachment-input" class="visually-hidden" type="file" disabled>
+                                    <button id="choose-private-attachment" class="attach-button" type="button" aria-label="Attach a file" title="Attach a file" disabled>▧</button>
+                                    <span class="attachment-hint">Encrypted files up to 10 MB</span>
+                                </div>
+                                <span id="message-error" class="empty-state" role="status" hidden></span>
+                                <button class="send-message-button" type="submit" disabled><span>Send</span><span aria-hidden="true">↑</span></button>
+                            </div>
+                        </form>
+                        <p class="secure-chat-disclaimer">Messages are encrypted on this browser. Keep this browser’s data to retain access, and compare the fingerprint with your friend through a trusted channel.</p>
+                    </section>
+                </section>
+                </section>
+            </section>
+            <section id="communities-tab" class="dashboard-panel">
+                <div class="panel-lead"><div><p class="panel-kicker">LEARN TOGETHER</p><h3>Find your people.</h3><p>Join a community to unlock its group conversation.</p></div><button class="primary-action" onclick="openCommunityModal()">＋ Create community</button></div>
+                <div class="community-view-tabs" role="tablist" aria-label="Community views">
+                    <button class="community-view-tab active" type="button" role="tab" aria-selected="true" data-community-view="discover" onclick="showCommunityView('discover')">Discover</button>
+                    <button class="community-view-tab" type="button" role="tab" aria-selected="false" data-community-view="messages" onclick="showCommunityView('messages')">Conversations <span class="community-message-count">0</span></button>
+                </div>
+                <div id="community-discover-view">
+                <div id="community-group-filters" class="community-view-tabs" role="tablist" aria-label="Community groups">
+                    <button class="community-view-tab active" type="button" role="tab" aria-selected="true" data-community-group="IT Communities">IT Communities</button>
+                    <button class="community-view-tab" type="button" role="tab" aria-selected="false" data-community-group="BA Communities">BA Communities</button>
+                </div>
+                <h4 id="community-group-heading" class="community-section-heading">IT Communities</h4>
+                <div id="community-category-filters" class="sub-tabs community-tabs" role="tablist" aria-label="IT Community topics"></div>
+                <p id="community-load-error" class="empty-state" role="status" hidden></p>
+                <div class="community-grid" id="community-grid"></div>
+                <p id="empty-communities" class="empty-state" hidden>No communities match this topic yet.</p>
+                </div>
+                <section id="community-messages-view" class="community-messages-view" hidden aria-label="Community conversations">
+                    <div class="community-messages-heading"><div><span class="eyebrow">GROUP DISCUSSIONS</span><h3>Your communities</h3><p>Announcements and conversations are shared in each community chat.</p></div></div>
+                    <section class="message-workspace community-message-workspace" data-message-workspace="community" aria-label="Community group messages">
+                        <aside class="conversation-sidebar">
+                            <div class="conversation-sidebar-heading"><h3>Community chats</h3><span class="community-conversation-total">0</span></div>
+                            <label class="conversation-search"><span aria-hidden="true">⌕</span><input class="conversation-search-input" type="search" placeholder="Find a community" aria-label="Find a community conversation"></label>
+                            <nav class="conversation-list" aria-label="Community conversations"></nav>
+                            <p class="community-inbox-empty">Join a community to start its group conversation.</p>
+                        </aside>
+                        <section class="conversation-thread" aria-label="Choose a community conversation">
+                            <header class="conversation-header">
+                                <span class="conversation-avatar group conversation-header-avatar">◌</span>
+                                <div><h3 class="conversation-name">Community conversations</h3><p class="conversation-status">Choose a joined community</p></div>
+                            </header>
+                            <div class="message-list" role="log" aria-live="polite" aria-relevant="additions text"></div>
+                            <p class="community-message-error empty-state" role="status" hidden></p>
+                            <form class="message-composer">
+                                <label class="message-input-label" for="community-message-type">Message type</label>
+                                <select id="community-message-type" class="community-message-type" disabled>
+                                    <option value="message">Chat message</option>
+                                    <option value="announcement">Announcement</option>
+                                </select>
+                                <label class="message-input-label" for="community-message-input">Write a message</label>
+                                <textarea id="community-message-input" class="message-input" rows="1" maxlength="2000" placeholder="Write a message..." aria-label="Write a group message" disabled></textarea>
+                                <div class="composer-toolbar">
+                                    <button class="send-message-button" type="submit" disabled><span>Send</span><span aria-hidden="true">↑</span></button>
+                                </div>
+                            </form>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section id="profile-tab" class="dashboard-panel">
+                <div class="profile-overview">
+                    <div class="profile-large-avatar profile-avatar" data-profile-avatar aria-hidden="true"><span data-profile-initial>?</span><img data-profile-image alt=""></div>
+                    <div class="profile-overview-copy">
+                        <p class="panel-kicker">YOUR PROFILE</p>
+                        <h3 data-profile-name>Loading profile...</h3>
+                        <p class="profile-email" data-profile-email></p>
+                        <p><span data-profile-course>Information Technology</span><span aria-hidden="true"> · </span><span data-profile-year>Second year</span></p>
+                        <p class="profile-institution" data-profile-institution hidden></p>
+                        <p class="profile-bio" data-profile-bio></p>
+                        <button class="secondary-action" type="button" onclick="openProfileEditor()">Edit profile</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+    <div id="upload-modal" class="dashboard-modal" hidden>
+        <form id="resource-upload-form" class="modal-card resource-upload-card">
+            <button class="modal-close" id="close-resource-upload" type="button" aria-label="Close upload form">×</button>
+            <p class="panel-kicker">SHARE WITH ACADEX</p>
+            <h3>Upload a resource</h3>
+            <p class="resource-upload-note">Your submission will appear in the library after an administrator approves it.</p>
+            <label for="resource-title">Resource title<input id="resource-title" name="title" type="text" maxlength="220" required></label>
+            <label for="resource-category">Folder
+                <select id="resource-category" name="resource_category" required>
+                    <option value="IT">Information Technology (IT)</option>
+                    <option value="Business Administration">Business Administration (BA)</option>
+                </select>
+            </label>
+            <label for="resource-type">Resource type
+                <select id="resource-type" name="resource_type" required>
+                    <option value="notes">Notes</option>
+                    <option value="article">Articles</option>
+                    <option value="past_paper">Past Papers &amp; Memos</option>
+                </select>
+            </label>
+            <label for="resource-description">Description<textarea id="resource-description" name="description" rows="3" maxlength="2000"></textarea></label>
+            <label for="resource-file">Document (PDF, DOC, or DOCX; max 10 MB)<input id="resource-file" name="file" type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required></label>
+            <p id="resource-upload-error" class="profile-save-message resource-upload-error" role="status" aria-live="polite"></p>
+            <button class="primary-action" type="submit">Submit for approval</button>
+        </form>
+    </div>
+    <div id="community-modal" class="dashboard-modal" hidden>
+        <form id="community-create-form" class="modal-card">
+            <button class="modal-close" id="close-community-modal" type="button" aria-label="Close community form">×</button>
+            <p class="panel-kicker">COMMUNITIES</p>
+            <h3>Create a community</h3>
+            <label for="community-name">Community name<input id="community-name" name="name" type="text" maxlength="180" required></label>
+            <label for="community-group">Community group
+                <select id="community-group" name="group" required>
+                    <option>IT Communities</option>
+                    <option>BA Communities</option>
+                </select>
+            </label>
+            <label for="community-category">Topic
+                <select id="community-category" name="category" required>
+                    <option value="">Choose a topic</option>
+                </select>
+            </label>
+            <label for="community-description">Description<textarea id="community-description" name="description" rows="3" maxlength="1000" placeholder="What will your community discuss?"></textarea></label>
+            <p id="community-create-message" class="profile-save-message" role="status" aria-live="polite"></p>
+            <button class="primary-action" type="submit">Create community</button>
+        </form>
+    </div>
+    <div id="profile-edit-modal" class="dashboard-modal" hidden>
+        <form id="profile-edit-form" class="modal-card profile-edit-card">
+            <button class="modal-close" id="close-profile-editor" type="button" aria-label="Close profile editor">×</button>
+            <p class="panel-kicker">YOUR PROFILE</p>
+            <h3>Edit profile</h3>
+            <div class="profile-photo-editor">
+                <div class="profile-photo-preview profile-avatar" data-profile-avatar aria-hidden="true"><span data-profile-initial>S</span><img data-profile-image alt=""></div>
+                <div class="profile-photo-actions">
+                    <strong>Profile picture</strong>
+                    <p>Choose an image from your device. JPG, PNG, GIF, or WebP.</p>
+                    <div class="profile-photo-buttons">
+                        <label class="profile-photo-pick" for="profile-photo-input">Choose image</label>
+                        <button id="remove-profile-photo" class="profile-photo-remove" type="button">Remove photo</button>
+                    </div>
+                    <input id="profile-photo-input" class="visually-hidden" type="file" accept="image/jpeg,image/png,image/gif,image/webp">
+                </div>
+            </div>
+            <div class="profile-edit-fields">
+                <label>Full name<input id="profile-name-input" type="text" maxlength="150" autocomplete="name" required></label>
+                <label>Institution<input id="profile-institution-input" type="text" maxlength="150" placeholder="Your institution"></label>
+                <label>Course or program<input id="profile-course-input" type="text" maxlength="150" placeholder="e.g. Information Technology"></label>
+                <label>Year of study<select id="profile-year-input"><option value="">Select year</option><option value="1">First year</option><option value="2">Second year</option><option value="3">Third year</option><option value="4">Fourth year</option><option value="5">Fifth year</option><option value="6">Postgraduate</option></select></label>
+                <label class="profile-bio-field">About me<textarea id="profile-bio-input" rows="3" maxlength="400" placeholder="Share a little about your studies"></textarea></label>
+            </div>
+            <p id="profile-save-message" class="profile-save-message" role="status" aria-live="polite"></p>
+            <div class="profile-edit-actions"><button id="cancel-profile-editor" class="profile-cancel-button" type="button">Cancel</button><button class="primary-action" type="submit">Save changes</button></div>
+        </form>
+    </div>
+    <section id="student-help-panel" class="student-help-panel" aria-label="Student dashboard help" hidden>
+        <header class="student-help-header">
+            <div>
+                <strong>Acadex help</strong>
+                <span>Student dashboard guide</span>
+            </div>
+            <button id="student-help-close" type="button" aria-label="Close help chat">×</button>
+        </header>
+        <div id="student-help-messages" class="student-help-messages" role="log" aria-live="polite" aria-relevant="additions text"></div>
+        <div class="student-help-suggestions" aria-label="Suggested questions">
+            <button type="button" data-help-question="How do I find course materials?">Find materials</button>
+            <button type="button" data-help-question="How do I message a friend?">Message a friend</button>
+            <button type="button" data-help-question="How do I join a community?">Join a community</button>
+        </div>
+        <form id="student-help-form" class="student-help-composer">
+            <label class="visually-hidden" for="student-help-input">Ask about using Acadex</label>
+            <input id="student-help-input" type="text" maxlength="300" autocomplete="off" placeholder="Ask how to use the dashboard…" required>
+            <button type="submit" aria-label="Send question">Send</button>
+        </form>
+    </section>
+    <button id="student-help-toggle" class="student-help-toggle" type="button" aria-expanded="false" aria-controls="student-help-panel">
+        <span aria-hidden="true">?</span> Help
+    </button>
+    <script>
+        const dashboardDate = document.getElementById('dashboard-current-date');
+        function updateDashboardDate() {
+            dashboardDate.textContent = new Intl.DateTimeFormat(undefined, {
+                weekday: 'long',
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+            }).format(new Date());
+        }
+        updateDashboardDate();
+        window.setInterval(updateDashboardDate, 60000);
+        document.addEventListener('visibilitychange', updateDashboardDate);
+
+        const pageTitles = { library: 'Your library', friends: 'Your friends', communities: 'Communities', profile: 'Your profile' };
+        let activeDashboardTab = 'library';
+        function showDashboardTab(tab) {
+            activeDashboardTab = tab;
+            document.querySelectorAll('.dashboard-panel').forEach(panel => panel.classList.toggle('active', panel.id === `${tab}-tab`));
+            document.querySelectorAll('.dashboard-nav-item').forEach(item => item.classList.toggle('active', item.dataset.tab === tab));
+            document.getElementById('page-title').textContent = pageTitles[tab];
+            const searchWrap = document.getElementById('dashboard-search-wrap');
+            const searchInput = document.getElementById('global-search');
+            searchWrap.hidden = tab === 'profile';
+            searchInput.value = '';
+            searchInput.placeholder = {
+                library: 'Search resources across all folders...',
+                friends: 'Search active students...',
+                communities: 'Search IT and BA communities...',
+                profile: '',
+            }[tab];
+            searchDashboard('');
+            if (tab === 'friends') {
+                loadAcceptedFriends();
+                loadFriendRequests();
+            }
+        }
+        function showFriendsView(view) { const showMessages = view === 'messages'; document.getElementById('friends-discover-view').hidden = showMessages; document.getElementById('friends-messages-view').hidden = !showMessages; document.querySelectorAll('[data-friends-view]').forEach(tab => { const selected = tab.dataset.friendsView === view; tab.classList.toggle('active', selected); tab.setAttribute('aria-selected', String(selected)); }); }
+        const resourceTypeLabels = { article: 'Articles', notes: 'Notes', past_paper: 'Past Papers & Memos', study_guide: 'Study Guides', other: 'Other' };
+        const resourceIconClasses = { article: 'blue', notes: 'violet', past_paper: 'orange', study_guide: 'green', other: 'cyan' };
+        let selectedResourceType = 'all';
+        let selectedResourceCategory = 'IT';
+        let selectedResourceCourse = 'all';
+        let resourceSearchTerm = '';
+        let loadedResources = [];
+        let selectedCommunityGroup = 'IT Communities';
+        let selectedCommunityCourse = 'all';
+        let communitySearchTerm = '';
+        let communityHighlightTimer;
+        const communityCategories = {
+            'IT Communities': [
+                'Database',
+                'Information Systems',
+                'Software Engineering',
+                'Programming C++',
+                'Programming JAVA',
+                'Programming Python',
+                'Data Science',
+                'Robotics',
+                'CyberSecurity',
+                'Machine Learning',
+                'Mathematics',
+                'Cloud Computing',
+            ],
+            'BA Communities': [
+                'Accounting',
+                'Commercial law',
+                'Business Management',
+                'Supply Chain',
+                'Economics',
+                'Information Systems',
+                'Business Ethics',
+                'Industrial Phsycology',
+                'Statistics',
+            ],
+        };
+        let friendSearchTimer;
+        let friendSearchRequest = 0;
+        let friendSearchQuery = '';
+        function applyResourceFilters() {
+            const term = resourceSearchTerm.trim().toLowerCase();
+            let visible = 0;
+            document.querySelectorAll('.resource-card').forEach(card => {
+                const matchesCategory = Boolean(term) || card.dataset.category === selectedResourceCategory;
+                const matchesType = Boolean(term) || selectedResourceType === 'all' || card.dataset.type === selectedResourceType;
+                const matchesCourse = Boolean(term) || selectedResourceCourse === 'all' || card.dataset.course === selectedResourceCourse;
+                const matchesSearch = !term || card.textContent.toLowerCase().includes(term);
+                card.hidden = !(matchesCategory && matchesType && matchesCourse && matchesSearch);
+                if (!card.hidden) visible++;
+            });
+            const empty = document.getElementById('empty-resources');
+            empty.textContent = term
+                ? 'No approved resources match that search.'
+                : `No approved resources are available in ${selectedResourceCategory} for these filters.`;
+            empty.hidden = visible > 0;
+        }
+        function switchLibraryCategory(category) {
+            selectedResourceCategory = category;
+            selectedResourceType = 'all';
+            selectedResourceCourse = 'all';
+            renderResources();
+        }
+        function switchLibraryTab(type) {
+            selectedResourceType = type;
+            document.querySelectorAll('[data-library-type]').forEach(item => {
+                const selected = item.dataset.libraryType === type;
+                item.classList.toggle('active', selected);
+                item.setAttribute('aria-selected', String(selected));
+            });
+            applyResourceFilters();
+        }
+        function filterCourse(button, course) {
+            selectedResourceCourse = course;
+            document.querySelectorAll('[data-course-filter]').forEach(item => item.classList.toggle('active', item === button));
+            applyResourceFilters();
+        }
+        function searchDashboard(value) {
+            if (activeDashboardTab === 'library') {
+                resourceSearchTerm = value;
+                renderResources();
+            } else if (activeDashboardTab === 'friends') {
+                showFriendsView('discover');
+                searchActiveStudents(value);
+            } else if (activeDashboardTab === 'communities') {
+                communitySearchTerm = value.trim().toLowerCase();
+                applyCommunityFilters();
+            }
+        }
+        function searchCards(value) { searchDashboard(value); }
+        function renderResources() {
+            const tabs = document.getElementById('resource-type-tabs');
+            const categoryTabs = document.getElementById('resource-category-tabs');
+            const grid = document.getElementById('resource-grid');
+            tabs.replaceChildren();
+            categoryTabs.replaceChildren();
+            grid.replaceChildren();
+            const categories = ['IT', 'Business Administration'];
+            const categoryLabels = {
+                IT: 'Information Technology (IT)',
+                'Business Administration': 'Business Administration (BA)',
+            };
+            categories.forEach(category => {
+                const button = document.createElement('button');
+                button.className = `resource-category-tab${category === selectedResourceCategory ? ' active' : ''}`;
+                button.type = 'button';
+                button.setAttribute('role', 'tab');
+                button.setAttribute('aria-selected', String(category === selectedResourceCategory));
+                const label = document.createElement('span');
+                label.textContent = categoryLabels[category];
+                const count = document.createElement('small');
+                count.textContent = String(loadedResources.filter(resource =>
+                    (resource.resource_category || 'IT') === category
+                ).length);
+                button.append(label, count);
+                button.addEventListener('click', () => switchLibraryCategory(category));
+                categoryTabs.append(button);
+            });
+
+            const resources = loadedResources.filter(resource =>
+                (resource.resource_category || 'IT') === selectedResourceCategory
+            );
+            const types = [
+                'all',
+                'notes',
+                'article',
+                'past_paper',
+                ...new Set(resources.map(resource => resource.resource_type)
+                    .filter(type => !['notes', 'article', 'past_paper'].includes(type))),
+            ];
+            types.forEach(type => {
+                const button = document.createElement('button');
+                button.className = `sub-tab${type === selectedResourceType ? ' active' : ''}`;
+                button.type = 'button';
+                button.dataset.libraryType = type;
+                button.setAttribute('role', 'tab');
+                button.setAttribute('aria-selected', String(type === selectedResourceType));
+                button.append(document.createTextNode(type === 'all' ? 'All resources ' : `${resourceTypeLabels[type] || 'Resources'} `));
+                const count = document.createElement('span');
+                count.textContent = String(type === 'all' ? resources.length : resources.filter(resource => resource.resource_type === type).length);
+                button.append(count);
+                button.addEventListener('click', () => switchLibraryTab(type));
+                tabs.append(button);
+            });
+
+            const courseFilters = document.getElementById('resource-course-filters');
+            courseFilters.replaceChildren();
+            const courseLabel = document.createElement('span');
+            courseLabel.textContent = 'Browse by course';
+            courseFilters.append(courseLabel);
+            const courses = [...new Set(resources.map(resource => resource.course_name || 'General'))].sort((a, b) => a.localeCompare(b));
+            [['all', 'All courses'], ...courses.map(course => [course, course])].forEach(([course, label]) => {
+                const button = document.createElement('button');
+                button.className = `course-filter${course === selectedResourceCourse ? ' active' : ''}`;
+                button.type = 'button';
+                button.dataset.courseFilter = course;
+                button.textContent = label;
+                button.addEventListener('click', () => filterCourse(button, course));
+                courseFilters.append(button);
+            });
+
+            const resourcesToRender = resourceSearchTerm.trim() ? loadedResources : resources;
+            resourcesToRender.forEach(resource => {
+                const typeLabel = resourceTypeLabels[resource.resource_type] || 'Resource';
+                const course = resource.course_name || 'General';
+                const card = document.createElement('article');
+                card.className = 'resource-card';
+                card.dataset.type = resource.resource_type;
+                card.dataset.category = resource.resource_category || 'IT';
+                card.dataset.course = course;
+                const icon = document.createElement('div');
+                icon.className = `resource-icon ${resourceIconClasses[resource.resource_type] || 'blue'}`;
+                icon.textContent = resource.resource_type === 'past_paper' ? '▣' : '▤';
+                const meta = document.createElement('div');
+                meta.className = 'resource-meta';
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = `${course} · ${typeLabel}`;
+                const title = document.createElement('h4');
+                title.textContent = resource.title;
+                const detail = document.createElement('p');
+                detail.textContent = resource.description || `Uploaded by ${resource.uploader_name || 'a student'}`;
+                meta.append(tag, title, detail);
+                card.append(icon, meta);
+                const resourceUrl = resource.file_url || resource.source_url;
+                if (resourceUrl) {
+                    try {
+                        const url = new URL(resourceUrl, window.location.origin);
+                        if (url.protocol === 'https:' || url.protocol === 'http:') {
+                            const link = document.createElement('a');
+                            link.className = 'card-menu';
+                            link.href = url.href;
+                            link.target = '_blank';
+                            link.rel = 'noopener noreferrer';
+                            link.setAttribute('aria-label', `Open ${resource.title}`);
+                            link.textContent = '→';
+                            card.append(link);
+                        }
+                    } catch (error) {
+                        console.error('Invalid URL for approved resource', resource.resource_id, error);
+                    }
+                }
+                grid.append(card);
+            });
+            document.getElementById('resource-load-error').hidden = true;
+            applyResourceFilters();
+        }
+        async function loadResources() {
+            const response = await fetch('/api/resources', { credentials: 'same-origin' });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message || 'Could not load approved resources.');
+            loadedResources = result.resources;
+            renderResources();
+        }
+        function renderActiveStudents(students, query) {
+            const results = document.getElementById('friend-results');
+            const empty = document.getElementById('empty-friends');
+            results.replaceChildren();
+            students.forEach(student => {
+                const card = document.createElement('article');
+                card.className = 'person-card';
+                const avatar = document.createElement('div');
+                avatar.className = 'person-avatar blue';
+                avatar.textContent = (student.username || '?').trim().charAt(0).toUpperCase() || '?';
+                const details = document.createElement('div');
+                const username = document.createElement('strong');
+                username.textContent = student.username;
+                const course = document.createElement('p');
+                course.textContent = student.course_of_study || 'Active student';
+                details.append(username, course);
+                const action = document.createElement('button');
+                action.type = 'button';
+                action.className = 'invite-button';
+                action.dataset.studentId = student.user_id;
+                if (student.friendship_status === 'pending' && student.request_direction === 'outgoing') {
+                    action.textContent = 'Invitation sent';
+                    action.classList.add('sent');
+                    action.disabled = true;
+                } else if (student.friendship_status === 'pending' && student.request_direction === 'incoming') {
+                    action.textContent = 'Accept invitation';
+                    action.dataset.friendAction = 'accept';
+                } else {
+                    action.textContent = 'Invite to friends';
+                    action.dataset.friendAction = 'invite';
+                }
+                card.append(avatar, details, action);
+                results.append(card);
+            });
+            empty.hidden = students.length > 0;
+            empty.textContent = query
+                ? (students.length ? '' : 'No active student accounts match that username.')
+                : (students.length ? 'Suggested active student accounts.' : 'No other active student accounts to suggest.');
+        }
+        function searchActiveStudents(value) {
+            window.clearTimeout(friendSearchTimer);
+            const query = value.trim();
+            friendSearchQuery = query;
+            const requestId = ++friendSearchRequest;
+            if (!query) {
+                document.getElementById('empty-friends').textContent = 'Loading active student suggestions...';
+                document.getElementById('empty-friends').hidden = false;
+            }
+            if (query) {
+                document.getElementById('empty-friends').textContent = 'Searching active student accounts...';
+                document.getElementById('empty-friends').hidden = false;
+            }
+            friendSearchTimer = window.setTimeout(async () => {
+                try {
+                    const searchUrl = query
+                        ? `/api/students/search?q=${encodeURIComponent(query)}`
+                        : '/api/students/search';
+                    const response = await fetch(searchUrl, {
+                        credentials: 'same-origin',
+                        headers: { Accept: 'application/json' },
+                    });
+                    const result = await response.json();
+                    if (!response.ok) throw new Error(result.message || 'Could not search students.');
+                    if (requestId === friendSearchRequest) renderActiveStudents(result.students, query);
+                } catch (error) {
+                    if (requestId !== friendSearchRequest) return;
+                    document.getElementById('empty-friends').textContent = error.message;
+                    document.getElementById('empty-friends').hidden = false;
+                }
+            }, 200);
+        }
+        async function sendFriendAction(studentId, action) {
+            const isResponse = action === 'accept' || action === 'decline';
+            const response = await fetch(
+                isResponse
+                    ? `/api/friend-requests/${encodeURIComponent(studentId)}/respond`
+                    : `/api/friend-requests/${encodeURIComponent(studentId)}`,
+                {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+                    ...(isResponse ? { body: JSON.stringify({ status: action === 'accept' ? 'accepted' : 'rejected' }) } : {}),
+                },
+            );
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message || 'Could not update this friend invitation.');
+            return result;
+        }
+        async function loadFriendRequests() {
+            const list = document.getElementById('incoming-friend-requests');
+            const empty = document.getElementById('empty-friend-requests');
+            list.replaceChildren();
+            try {
+                const response = await fetch('/api/friend-requests', {
+                    credentials: 'same-origin',
+                    headers: { Accept: 'application/json' },
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Could not load friend requests.');
+                result.incoming.forEach(invitation => {
+                    const row = document.createElement('div');
+                    row.className = 'friend-row';
+                    const avatar = document.createElement('span');
+                    avatar.className = 'person-avatar violet';
+                    avatar.textContent = (invitation.username || '?').trim().charAt(0).toUpperCase() || '?';
+                    const details = document.createElement('span');
+                    details.className = 'friend-details';
+                    const name = document.createElement('strong');
+                    name.textContent = invitation.username;
+                    const label = document.createElement('span');
+                    label.textContent = 'Invited you to connect';
+                    details.append(name, label);
+                    const actions = document.createElement('span');
+                    actions.className = 'friend-request-actions';
+                    [['accept', 'Accept'], ['decline', 'Decline']].forEach(([action, text]) => {
+                        const button = document.createElement('button');
+                        button.type = 'button';
+                        button.className = action === 'accept' ? 'invite-button' : 'invite-button secondary-invite';
+                        button.dataset.friendAction = action;
+                        button.dataset.studentId = invitation.user_id;
+                        button.textContent = text;
+                        actions.append(button);
+                    });
+                    row.append(avatar, details, actions);
+                    list.append(row);
+                });
+                empty.hidden = result.incoming.length > 0;
+                empty.textContent = 'No pending invitations.';
+            } catch (error) {
+                empty.textContent = error.message;
+                empty.hidden = false;
+            }
+        }
+        async function loadAcceptedFriends() {
+            const list = document.getElementById('friend-list');
+            const empty = document.getElementById('empty-friend-list');
+            list.replaceChildren();
+            empty.hidden = true;
+            try {
+                const response = await fetch('/api/friends', {
+                    credentials: 'same-origin',
+                    headers: { Accept: 'application/json' },
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Could not load your friends.');
+                result.friends.forEach(friend => {
+                    const row = document.createElement('button');
+                    row.type = 'button';
+                    row.className = 'friend-row friend-chat-link';
+                    row.dataset.messageContact = friend.user_id;
+                    const avatar = document.createElement('span');
+                    avatar.className = 'person-avatar violet';
+                    avatar.textContent = (friend.username || '?').trim().charAt(0).toUpperCase() || '?';
+                    const details = document.createElement('span');
+                    details.className = 'friend-details';
+                    const name = document.createElement('strong');
+                    name.textContent = friend.username;
+                    const course = document.createElement('span');
+                    course.textContent = friend.course_of_study || 'Active student';
+                    details.append(name, course);
+                    const prompt = document.createElement('span');
+                    prompt.className = 'friend-open-indicator';
+                    prompt.textContent = 'Message →';
+                    row.append(avatar, details, prompt);
+                    list.append(row);
+                });
+                empty.textContent = result.friends.length
+                    ? ''
+                    : 'You have no accepted friendships yet.';
+                empty.hidden = result.friends.length > 0;
+            } catch (error) {
+                empty.textContent = error.message;
+                empty.hidden = false;
+            }
+        }
+        document.getElementById('friend-results').addEventListener('click', async event => {
+            const button = event.target.closest('[data-friend-action]');
+            if (!button) return;
+            button.disabled = true;
+            try {
+                await sendFriendAction(button.dataset.studentId, button.dataset.friendAction);
+                searchActiveStudents(friendSearchQuery);
+                await Promise.all([loadAcceptedFriends(), loadFriendRequests()]);
+                if (window.refreshMessageFriends) await window.refreshMessageFriends();
+            } catch (error) {
+                document.getElementById('empty-friends').textContent = error.message;
+                document.getElementById('empty-friends').hidden = false;
+                button.disabled = false;
+            }
+        });
+        document.getElementById('incoming-friend-requests').addEventListener('click', async event => {
+            const button = event.target.closest('[data-friend-action]');
+            if (!button) return;
+            button.disabled = true;
+            try {
+                await sendFriendAction(button.dataset.studentId, button.dataset.friendAction);
+                searchActiveStudents(friendSearchQuery);
+                await Promise.all([loadAcceptedFriends(), loadFriendRequests()]);
+                if (window.refreshMessageFriends) await window.refreshMessageFriends();
+            } catch (error) {
+                document.getElementById('empty-friend-requests').textContent = error.message;
+                document.getElementById('empty-friend-requests').hidden = false;
+                button.disabled = false;
+            }
+        });
+        function openCommunityChat(card) {
+            const communityId = card.dataset.communityId;
+            const name = card.querySelector('h4').textContent.trim();
+            const memberCount = Number(card.querySelector('.member-count').textContent.match(/\d[\d,]*/)?.[0]?.replace(/,/g, '') || 0);
+            window.openCommunityConversation(String(communityId), {
+                name,
+                memberCount,
+                initial: name.split(/\s+/).map(word => word[0]).slice(0, 2).join('').toUpperCase(),
+            });
+        }
+        async function joinCommunity(button, communityId) {
+            const card = button.closest('.community-card');
+            if (card.dataset.isMember === 'true') {
+                openCommunityChat(card);
+                return;
+            }
+            button.disabled = true;
+            try {
+                const response = await fetch(`/api/communities/${encodeURIComponent(communityId)}/join`, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Could not join this community.');
+                card.dataset.isMember = 'true';
+                card.querySelector('.member-count').textContent = `◌ ${Number(result.member_count).toLocaleString()} members`;
+                button.textContent = 'Open chat';
+                button.classList.add('joined');
+                openCommunityChat(card);
+            } catch (error) {
+                const message = document.getElementById('community-load-error');
+                message.textContent = error.message;
+                message.hidden = false;
+            } finally {
+                button.disabled = false;
+            }
+        }
+        function showCommunityView(view) {
+            const showMessages = view === 'messages';
+            document.getElementById('community-discover-view').hidden = showMessages;
+            document.getElementById('community-messages-view').hidden = !showMessages;
+            document.querySelectorAll('.community-view-tab').forEach(tab => {
+                const selected = tab.dataset.communityView === view;
+                tab.classList.toggle('active', selected);
+                tab.setAttribute('aria-selected', String(selected));
+            });
+        }
+        function switchCommunityTab(button, course) {
+            selectedCommunityCourse = course;
+            document.querySelectorAll('#community-category-filters .sub-tab').forEach(item => {
+                const selected = item === button;
+                item.classList.toggle('active', selected);
+                item.setAttribute('aria-selected', String(selected));
+            });
+            applyCommunityFilters();
+            if (course !== 'all') {
+                const matchingCommunity = [...document.querySelectorAll('.community-card')]
+                    .find(card => !card.hidden && card.dataset.course === course);
+                if (matchingCommunity) {
+                    document.querySelectorAll('.community-card-highlight').forEach(card => {
+                        card.classList.remove('community-card-highlight');
+                    });
+                    window.clearTimeout(communityHighlightTimer);
+                    void matchingCommunity.offsetWidth;
+                    matchingCommunity.classList.add('community-card-highlight');
+                    matchingCommunity.focus({ preventScroll: true });
+                    matchingCommunity.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    communityHighlightTimer = window.setTimeout(() => {
+                        matchingCommunity.classList.remove('community-card-highlight');
+                    }, 2000);
+                }
+            }
+        }
+        function switchCommunityGroup(group) {
+            if (!communityCategories[group]) return;
+            selectedCommunityGroup = group;
+            selectedCommunityCourse = 'all';
+            communitySearchTerm = '';
+            document.getElementById('global-search').value = '';
+            document.querySelectorAll('#community-group-filters [data-community-group]').forEach(button => {
+                const selected = button.dataset.communityGroup === group;
+                button.classList.toggle('active', selected);
+                button.setAttribute('aria-selected', String(selected));
+            });
+            document.getElementById('community-group-heading').textContent = group;
+            document.getElementById('community-category-filters').setAttribute(
+                'aria-label',
+                `${group} topics`,
+            );
+            renderCommunityCategories();
+            applyCommunityFilters();
+        }
+        function applyCommunityFilters() {
+            const cards = [...document.querySelectorAll('.community-card')];
+            cards.forEach(card => {
+                const matchesGroup = card.dataset.group === selectedCommunityGroup;
+                const matchesCategory = selectedCommunityCourse === 'all'
+                    || card.dataset.course === selectedCommunityCourse;
+                const matchesSearch = !communitySearchTerm || card.textContent.toLowerCase().includes(communitySearchTerm);
+                card.hidden = !(matchesGroup && matchesCategory && matchesSearch);
+            });
+            const visible = cards.some(card => !card.hidden);
+            const empty = document.getElementById('empty-communities');
+            empty.textContent = communitySearchTerm
+                ? `No communities match your search in ${selectedCommunityGroup}.`
+                : `No communities match this topic in ${selectedCommunityGroup} yet.`;
+            empty.hidden = visible;
+        }
+        function renderCommunityCategories() {
+            const filters = document.getElementById('community-category-filters');
+            filters.replaceChildren();
+            [['all', 'All'], ...communityCategories[selectedCommunityGroup].map(category => [category, category])]
+                .forEach(([course, label]) => {
+                    const button = document.createElement('button');
+                    button.className = `sub-tab${course === selectedCommunityCourse ? ' active' : ''}`;
+                    button.type = 'button';
+                    button.setAttribute('role', 'tab');
+                    button.setAttribute('aria-selected', String(course === selectedCommunityCourse));
+                    button.textContent = label;
+                    button.addEventListener('click', () => switchCommunityTab(button, course));
+                    filters.append(button);
+                });
+        }
+        function renderCommunities(communities) {
+            window.communityData = communities;
+            window.updateCommunityConversations?.(communities);
+            const grid = document.getElementById('community-grid');
+            grid.replaceChildren();
+            renderCommunityCategories();
+            communities.forEach(community => {
+                const course = community.course_name || 'General';
+                const card = document.createElement('article');
+                card.className = 'community-card';
+                card.tabIndex = -1;
+                card.dataset.group = community.community_group || 'IT Communities';
+                card.dataset.course = course;
+                card.dataset.communityId = String(community.community_id);
+                card.dataset.isMember = String(Boolean(community.is_member));
+                const symbol = document.createElement('div');
+                symbol.className = 'community-symbol';
+                symbol.textContent = card.dataset.group === 'BA Communities' ? '◫' : '⌘';
+                const details = document.createElement('div');
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = `${card.dataset.group} · ${course} COMMUNITY`;
+                const title = document.createElement('h4');
+                title.textContent = community.name;
+                const description = document.createElement('p');
+                description.textContent = community.description || '';
+                const count = document.createElement('span');
+                count.className = 'member-count';
+                count.textContent = `◌ ${Number(community.member_count).toLocaleString()} members`;
+                details.append(tag, title, description, count);
+                const joinButton = document.createElement('button');
+                joinButton.className = `join-button${community.is_member ? ' joined' : ''}`;
+                joinButton.type = 'button';
+                joinButton.textContent = community.is_member ? 'Open chat' : 'Join';
+                joinButton.addEventListener('click', () => joinCommunity(joinButton, community.community_id));
+                card.append(symbol, details, joinButton);
+                card.hidden = card.dataset.group !== selectedCommunityGroup
+                    || (selectedCommunityCourse !== 'all' && course !== selectedCommunityCourse)
+                    || Boolean(communitySearchTerm && !card.textContent.toLowerCase().includes(communitySearchTerm));
+                grid.append(card);
+            });
+            document.getElementById('community-load-error').hidden = true;
+            applyCommunityFilters();
+        }
+        document.querySelectorAll('#community-group-filters [data-community-group]').forEach(button => {
+            button.addEventListener('click', () => switchCommunityGroup(button.dataset.communityGroup));
+        });
+        function renderCommunityTopics(group) {
+            const topicSelect = document.getElementById('community-category');
+            topicSelect.replaceChildren(new Option('Choose a topic', ''));
+            communityCategories[group].forEach(category => topicSelect.add(new Option(category, category)));
+        }
+        document.getElementById('community-group').addEventListener('change', event => {
+            renderCommunityTopics(event.target.value);
+        });
+        renderCommunityCategories();
+        renderCommunityTopics(document.getElementById('community-group').value);
+        async function loadCommunities() {
+            const response = await fetch('/api/communities', { credentials: 'same-origin' });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.message || 'Could not load communities.');
+            renderCommunities(result.communities);
+        }
+        function openUploadModal() {
+            document.getElementById('resource-upload-error').textContent = '';
+            document.getElementById('resource-category').value = selectedResourceCategory;
+            document.getElementById('upload-modal').hidden = false;
+        }
+        async function readUploadResponse(response) {
+            const contentType = response.headers.get('content-type') || '';
+            if (!contentType.toLowerCase().includes('json')) {
+                if (response.status === 404 || response.status === 405) {
+                    throw new Error('The running server does not recognize resource uploads. Restart Flask, then reload the dashboard.');
+                }
+                if (response.status === 413) {
+                    throw new Error('The server rejected this upload as too large. Choose a file under 10 MB or check the server upload limit.');
+                }
+                throw new Error(`The upload server returned an unexpected response (${response.status}). Restart Flask and reload the dashboard.`);
+            }
+            try {
+                return await response.json();
+            } catch {
+                throw new Error('The upload server returned an invalid response. Restart Flask and try again.');
+            }
+        }
+        function closeModal(id) { document.getElementById(id).hidden = true; }
+        document.getElementById('close-resource-upload').addEventListener('click', () => closeModal('upload-modal'));
+        document.getElementById('resource-upload-form').addEventListener('submit', async event => {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const error = document.getElementById('resource-upload-error');
+            const submit = form.querySelector('button[type="submit"]');
+            error.textContent = '';
+            const fileInput = document.getElementById('resource-file');
+            const file = fileInput.files[0];
+            if (file && file.size > 10 * 1024 * 1024) {
+                error.textContent = 'The selected file is larger than 10 MB. Choose a smaller file.';
+                return;
+            }
+            submit.disabled = true;
+            try {
+                const response = await fetch('/api/resources', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    body: new FormData(form),
+                });
+                const result = await readUploadResponse(response);
+                if (!response.ok) throw new Error(result.message || 'Could not submit the resource.');
+                form.reset();
+                closeModal('upload-modal');
+                const notice = document.getElementById('resource-upload-message');
+                notice.textContent = result.message;
+                notice.hidden = false;
+                await loadResources().catch(loadError => {
+                    const loadMessage = document.getElementById('resource-load-error');
+                    loadMessage.textContent = loadError.message;
+                    loadMessage.hidden = false;
+                });
+            } catch (uploadError) {
+                error.textContent = uploadError.message;
+            } finally {
+                submit.disabled = false;
+            }
+        });
+        function openCommunityModal() {
+            document.getElementById('community-create-message').textContent = '';
+            document.getElementById('community-modal').hidden = false;
+        }
+        document.getElementById('close-community-modal').addEventListener('click', () => closeModal('community-modal'));
+        document.getElementById('community-create-form').addEventListener('submit', async event => {
+            event.preventDefault();
+            const form = event.currentTarget;
+            const message = document.getElementById('community-create-message');
+            message.textContent = '';
+            const submit = form.querySelector('button[type="submit"]');
+            submit.disabled = true;
+            try {
+                const response = await fetch('/api/communities', {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: document.getElementById('community-name').value,
+                        group: document.getElementById('community-group').value,
+                        category: document.getElementById('community-category').value,
+                        description: document.getElementById('community-description').value,
+                    }),
+                });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Could not create the community.');
+                form.reset();
+                closeModal('community-modal');
+                selectedCommunityGroup = result.community.community_group;
+                selectedCommunityCourse = 'all';
+                switchCommunityGroup(selectedCommunityGroup);
+                await loadCommunities();
+                const card = [...document.querySelectorAll('.community-card')]
+                    .find(item => item.dataset.communityId === String(result.community.community_id));
+                if (card) openCommunityChat(card);
+            } catch (error) {
+                message.textContent = error.message;
+            } finally {
+                submit.disabled = false;
+            }
+        });
+        async function logout() {
+            try {
+                const response = await fetch('/api/logout', { method: 'POST', credentials: 'same-origin' });
+                const result = await response.json();
+                if (!response.ok) throw new Error(result.message || 'Could not log out.');
+                window.location.assign('/indext.html?tab=login');
+            } catch (error) {
+                console.error('Could not log out.', error);
+                window.alert(error.message || 'Could not log out. Please try again.');
+            }
+        }
+        loadResources().catch(error => {
+            const message = document.getElementById('resource-load-error');
+            message.textContent = error.message;
+            message.hidden = false;
+        });
+        if ('BroadcastChannel' in window) {
+            const resourceChannel = new BroadcastChannel('acadex-resource-stats');
+            resourceChannel.addEventListener('message', event => {
+                if (event.data && event.data.type === 'resource-library-changed') {
+                    loadResources().catch(error => {
+                        const message = document.getElementById('resource-load-error');
+                        message.textContent = error.message;
+                        message.hidden = false;
+                    });
+                }
+            });
+        }
+        window.setInterval(() => {
+            if (!document.hidden) {
+                loadResources().catch(error => {
+                    const message = document.getElementById('resource-load-error');
+                    message.textContent = error.message;
+                    message.hidden = false;
+                });
+            }
+        }, 60000);
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                loadResources().catch(error => {
+                    const message = document.getElementById('resource-load-error');
+                    message.textContent = error.message;
+                    message.hidden = false;
+                });
+            }
+        });
+        loadCommunities().catch(error => {
+            const message = document.getElementById('community-load-error');
+            message.textContent = error.message;
+            message.hidden = false;
+        });
+    </script>
+    <script src="js/student-session.js"></script>
+    <script src="js/secure-messaging-crypto.js"></script>
+    <script src="js/messages.js"></script>
+    <script src="js/community-messages.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/student-help-chatbot.js"></script>
+    <script src="js/theme.js"></script>
+</body>
+</html>
