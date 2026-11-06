@@ -1,6 +1,6 @@
 import unittest
 
-import app as backend
+from js import app as backend
 
 
 class AdminDashboardApiTest(unittest.TestCase):

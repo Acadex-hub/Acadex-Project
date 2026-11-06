@@ -8,7 +8,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from unittest.mock import MagicMock, patch
 
-import app as backend
+from js import app as backend
 
 
 class DashboardDataTest(unittest.TestCase):

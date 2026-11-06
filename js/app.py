@@ -23,7 +23,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 RESOURCE_UPLOAD_DIR = BASE_DIR / "uploads" / "resources"
 PRIVATE_MESSAGE_UPLOAD_DIR = BASE_DIR / "uploads" / "private_messages"
 load_dotenv(BASE_DIR / ".env")

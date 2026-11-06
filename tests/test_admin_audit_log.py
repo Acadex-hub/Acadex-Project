@@ -3,7 +3,7 @@ from datetime import datetime
 import unittest
 from unittest.mock import patch
 
-import app as backend
+from js import app as backend
 
 
 class FakeAuditCursor:

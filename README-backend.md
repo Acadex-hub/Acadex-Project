@@ -32,7 +32,7 @@ For a local XAMPP account using `root` with no password, `DB_USER=root` and an e
 ## Start the site
 
 ```powershell
-py app.py
+py js/app.py
 ```
 
 Open `http://127.0.0.1:5000/` to start at the Acadex homepage. Use its Log In or Get Started links to access `indext.html` through Flask; do not open `indext.html` as a `file://` URL, because the browser needs to use the Flask origin to call the API and receive the login session cookie. Password reset requires valid SMTP settings in `.env`; a missing configuration is reported in the reset form.
