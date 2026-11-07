@@ -12,6 +12,8 @@ The backend adds a five-attempt limit to reset-code verification. It has been ap
 
 Run scripts `database/01_accounts.sql` through `database/04_admin.sql` in order only when setting up a fresh schema. Then run `database/05_it_communities.sql` through `database/13_community_chat.sql` in order on both fresh and existing databases to add community fields/topics, resource categories, persistent direct messages, end-to-end encryption, private-message file storage, BA Communities, student login activity tracking, the Business Administration resource-folder label, and persistent community chat. Migration 13 imports existing community posts as announcements and is safe to rerun. Migration 08 deletes existing plaintext private messages because they cannot be converted into encrypted messages.
 
+For a fresh database in MySQL Workbench, connect to your MySQL server, open `database/CREATE_PYTHON_APP.sql`, and execute the complete script. It combines migrations 01-13 in order and creates the `python_app` database. Run it only for a fresh database: migration 08 removes legacy plaintext private messages.
+
 ## Python setup
 
 From this project folder:
@@ -32,7 +34,7 @@ For a local XAMPP account using `root` with no password, `DB_USER=root` and an e
 ## Start the site
 
 ```powershell
-py js/app.py
+py app.py
 ```
 
 Open `http://127.0.0.1:5000/` to start at the Acadex homepage. Use its Log In or Get Started links to access `indext.html` through Flask; do not open `indext.html` as a `file://` URL, because the browser needs to use the Flask origin to call the API and receive the login session cookie. Password reset requires valid SMTP settings in `.env`; a missing configuration is reported in the reset form.

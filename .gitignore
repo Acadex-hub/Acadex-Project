@@ -1,6 +1,18 @@
+# Environment variables
 .env
+.env.*
+
+# Python
 .venv/
+venv/
 __pycache__/
 *.py[cod]
-uploads/resources/
-uploads/private_messages/
+
+# User uploads
+uploads/
+
+# IDE and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

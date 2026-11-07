@@ -2,7 +2,7 @@ import unittest
 from contextlib import nullcontext
 from unittest.mock import MagicMock, patch
 
-from js import app as backend
+import app as backend
 
 
 class PasswordResetEmailTest(unittest.TestCase):

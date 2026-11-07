@@ -2,7 +2,7 @@ import secrets
 import unittest
 from unittest.mock import patch
 
-from js import app as backend
+import app as backend
 
 
 class MysqlAuthFlowTest(unittest.TestCase):
